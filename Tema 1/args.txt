@@ -1,0 +1,6 @@
+1: 1 for annealing, 2 for hillclimb
+2: bits
+3: dimensions
+4: 1 for rastrigin, 2 for rosembrock, 3 for ackley, 4 for dixon price
+5, 6: margini functie
+7: best/first sau dummy pentru annealing

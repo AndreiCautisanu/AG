@@ -1,5 +1,15 @@
 import math
 
+rastAB = [-5.12, 5.12]
+rosenbrockAB = [-2.048, 2.048]
+ackleyAB = [-32.768, 32.768]
+dixonpriceAB = [-10, 10]
+
+rastBits = 17
+rosenbrockBits = 16
+ackleyBits = 20
+dixonpriceBits = 18
+
 def ackley(arg_list):
     sum1 = 0
     sum2 = 0

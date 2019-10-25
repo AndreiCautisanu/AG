@@ -24,6 +24,6 @@ def split(arr, size):
     while len(arr) > size:
         pice = arr[:size]
         arrs.append(pice)
-        arr   = arr[size:]
+        arr = arr[size:]
     arrs.append(arr)
     return arrs

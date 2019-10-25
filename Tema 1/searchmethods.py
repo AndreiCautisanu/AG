@@ -3,6 +3,7 @@ import math
 import decode
 import random
 import functions as f
+from time import sleep
 
 def neighbor(bitArray, pos):
     tmp = list(bitArray)
@@ -19,10 +20,11 @@ def improveFirst(bitList, min, L, d, func, a, b):
     for nbor in nbhood:
         dec = decode.decode(nbor, a, b, L)
         val = func(dec)
-        if val < mincpy:
+        if round(val, 4) < round(mincpy, 4):
             flag = True
             mincpy = val
             firstImprov = nbor
+            #print(val)
             break
     
     if not(flag):
@@ -56,10 +58,10 @@ def hillClimb(L, d, func, a, b, bestOrFirst):
     local = False
 
     while not(local):
-        if bestOrFirst == "first":
-            min, vn = improveFirst(bitList, best, L, d, func, a, b)
-        elif bestOrFirst == "best":
+        if bestOrFirst == "best":
             min, vn = improveBest(bitList, best, L, d, func, a, b)
+        elif bestOrFirst == "first":
+            min, vn = improveFirst(bitList, best, L, d, func, a, b)
     
         if min >= best:
             local = True
@@ -68,13 +70,31 @@ def hillClimb(L, d, func, a, b, bestOrFirst):
             best = min
     
     #print(decode.decode(bitList, -5.12, 5.12, L))
-    return min
+    return min, bitList
+
+def simulatedAnnealing(L, d, func, a, b, dummy):
+    t = 0
+    Temp = 100
+    bitList = numpy.random.randint(2, size=L*d)
+
+    while round(Temp, 5) > 0: 
+        currentEnergy = func(decode.decode(bitList, a, b, L))
+
+        pos = numpy.random.randint(L*d)
+        selected = neighbor(bitList, pos)
+        selectedEnergy = func(decode.decode(selected, a, b, L))
+        energyDelta = selectedEnergy - currentEnergy
+        #print("HELLO LOOK AT ME E DELTA = {}".format(energyDelta))
+
+        P = 1 if selectedEnergy < currentEnergy else numpy.exp(-(selectedEnergy - currentEnergy) / Temp)
+
+        if numpy.random.uniform(0, 1) < P:
+            bitList = selected
+        
+        Temp *= 0.95
+        t += 1
+
+    return func(decode.decode(bitList, a, b, L)), bitList
 
 fnc = f.rast
 minim = 100
-
-for i in range(100):
-    aya = hillClimb(30, 2, fnc, -5.12, 5.12, "best")
-    if aya < minim:
-        minim = aya
-print(aya)
