@@ -1,0 +1,45 @@
+# Găsirea minimului a 4 funcții de optimizare folosind algoritmi tip traiectorie
+
+-- Andrei Căutișanu, 2E2
+-- Tema T1
+
+---
+
+### Despre experiment
+Prin acest experiment vom testa performanța algoritmilor Best Improvement Hill Climbing, First Improvement Hill Climbing și Simulated Annealing căutând minimul funcțiilor de optimizare Rastrigin, Ackley, Dixon-Price și Rosenbrock. De asemenea, vom observa rata de scădere a acurateții rezultatului pe măsură ce creștem numărul de parametri ai funcției. 
+
+---
+
+## Algoritmii utilizați
+
+#### HILL CLIMBING
+
+Tehnica de optimizare **hill climbing** realizează o căutare locală, începând cu o soluție aleatorie, apoi făcând o schimbare incrementală soluției pentru a o îmbunătăți. Algoritmul continuă să realizeze schimbări incrementale până când nu mai poate îmbunătăți soluția.
+
+În cazul nostru, algoritmul generează un set de parametri aleatoriu ca prima soluție, apoi caută în vecinătatea acesteia (descrisă în secțiunea "Implementare") o soluție mai bună. Dacă aceasta este găsită, va fi considerată noua soluție, acest procedeu continuând până când nu se poate găsi o soluție mai bună în vecinătatea celei curente. 
+
+- **First Improvement Hill Climbing** va evalua soluțiile din vecinătate până când o găsește pe prima care îmbunătățește rezultatul, selectând-o și oprind evaluarea vecinătății
+- **Best Improvement (Steepest Ascent) Hill Climbing** va evalua toate soluțiile din vecinătate și o va selecta pe cea care se apropie cel mai mult de rezultatul dorit (în cazul nostru, setul de parametri care rezultă în cea mai mică valoare a funcției)
+
+În cazul particular al acestui experiment, când în vecinătatea soluției curente nu se găsește una mai bună, algoritmul a ajuns într-un minim local din care nu mai poate ieși. De aceea, vom folosi varianta iterată a Hill Climbing, cu care vom restarta procedeul de fiecare dată când ajungem într-un minim local, astfel găsind mai multe minime locale și parcurgând un spațiu mai mare în funcție.
+
+### SIMULATED ANNEALING
+Simulated Annealing este o metodă de aproximare a optimului global care permite ieșirea din optimul local prin acceptarea unor soluții de calitate mai slabă. Probabilitatea acceptării unei soluții de calitate mai slabă este mai mare la începutul executării și scade pe măsură ce programul selectează mai multe soluții.
+
+La începutul programului se inițializează coeficientul de "temperatură" care va scădea pe parcursul rulării (în cazul experimentului de față, am folosit temperatura inițială 100 care scade cu o rată de 5%). În fiecare pas, algoritmul va selecta aleatoriu un vecin al soluției curente. Dacă calitatea acesteia este mai bună (în cazul nostru, valoarea funcției în vecin este mai mică), funcția o va accepta ca o nouă soluție. În caz contrar, algoritmul va accepta noua soluție cu o probabilitate P sau va rămâne în soluția curentă cu o probabilitate 1-P, unde P este definit ca:
+
+P = exp(--(calitatea soluției vecine -- calitatea soluției curente) / Temperatura)
+
+Astfel, probabilitatea selectării unei soluții mai slabe este direct proporțională cu calitatea relativă față de soluția curentă și cu temperatura curentă a algoritmului. Pe măsură ce sunt selectate mai multe soluții, va scădea probabilitatea de a trece într-o soluție mai slabă. În timp ce Hill Climbing va rămâne mereu blocat într-un punct de optim local, Simulated Annealing va avea o șansă de a ieși din acel punct pentru a căuta mai multe soluții și având șanse mai mari de a găsi optimul global.
+
+---
+
+## Implementare
+
+
+
+
+
+
+
+
