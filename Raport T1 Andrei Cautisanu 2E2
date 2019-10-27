@@ -36,10 +36,86 @@ Astfel, probabilitatea selectării unei soluții mai slabe este direct proporți
 
 ## Implementare
 
+Vom genera soluțiile ca șiruri de biți pe care le vom mapa în intervalul corespunzător domeniului funcției. Pentru a genera un număr într-un interval [a,b] cu precizie de Z zecimale vom avea nevoie de un număr de biți egal cu partea întreagă superioară a numărului log2(10^Z^ * (b-a)). Algoritmul lucrează cu generare cu o precizie de 4 zecimale, deci pentru domeniul de definiție al funcției Ackley  [-32.768, 32.768] va genera un șir de lungime L = 20 de biți ca parametru.
+
+Deci, pentru a genera un anumit număr *d* de parametri, trebuie doar să generăm un șir de biți aleatorii de lungime *L* \* *d*.
+
+**Vecinătatea** soluției curente va fi alcătuită din toate șirurile de biți care au distanța Hamming față de aceasta egală cu 1. Spre exemplu, vecinătatea soluției [101101] va fi mulțimea {[001101], [111101], [100101], [101001], [101111], [101100]}
 
 
+---
 
+## Rezultatele experimentului
 
+- ### FUNCȚIA RASTRIGIN
 
+    ![](https://www.sfu.ca/~ssurjano/rastr2.png)
 
+    Minimul global al funcției este 0, când toți parametrii au valoarea 0.
+    
+    x~i~ ∈ [-5.12, 5.12], pentru i = 1, ..., d
+
+    Graficul funcției cu 2 parametri:
+    
+    ![](https://www.sfu.ca/~ssurjano/rastr.png)
+    
+---
+    
+    
+- **RASTRIGIN 2 PARAMETRI**
+    
+ | Metoda | Nr. iteratii | Solutia minima | Solutia maxima | Media solutiilor | Deviatia standard |
+|:----------------------------------:|:------------:|:--------------:|:--------------:|:----------------:|:-----------------:|
+| HILL CLIMBING  (best improvement) x30 | 100 | 3.027e-06 | 3.027e-06 | 3.027e-06 | 0 |
+| HILL CLIMBING  (first improvement) x30 | 100 | 6.054538e-07 | 2.240179e-05 | 4.076722e-06 | 4.572274e-06 |
+| SIMULATED ANNEALING | 10000 | 6.054538e-07 | 15.92933 | 4.579159 | 3.202226 |
+
+![](https://i.imgur.com/myTFWiB.png)
+![](https://i.imgur.com/Ao1xkbi.png)
+---
+- **RASTRIGIN 5 PARAMETRI**
+
+| Metoda | Nr. iteratii | Solutia minima | Solutia maxima | Media solutiilor | Deviatia standard |
+|:--------------------------------------:|:------------:|:--------------:|:--------------:|:----------------:|:-----------------:|
+| HILL CLIMBING  (best improvement) x30 | 100 | 3.93545e-06 | 4.985067 | 2.245943 | 1.070562 |
+| HILL CLIMBING  (first improvement) x30 | 100 | 3.057541e-05 | 2.990033 | 2.01848 | 0.5777003 |
+| SIMULATED ANNEALING | 10000 | 1.320564 | 41.92923 | 14.3618 | 6.579299 |
+
+![](https://i.imgur.com/eWQxDzS.png)
+![](https://i.imgur.com/12mlU2N.png)
+![](https://i.imgur.com/8Rkgu1G.png)
+
+---
+
+- **RASTRIGIN 30 PARAMETRI**
+
+| Metoda | Nr. iteratii | Solutia minima | Solutia maxima | Media solutiilor | Deviatia standard |
+|:--------------------------------------:|:------------:|:--------------:|:--------------:|:----------------:|:-----------------:|
+| HILL CLIMBING  (best improvement) x30 | 25 | 210 | 234 | 226.5667 | 5.110391 |
+| HILL CLIMBING  (first improvement) x30 | 25 | 38.862 | 61.904 | 48.97647 | 5.711071 |
+| SIMULATED ANNEALING | 5000 | 137.9132 | 384.1236 | 244.4421 | 38.18492 |
+
+![](https://i.imgur.com/n3r0TJg.png)
+![](https://i.imgur.com/2f6iQB1.png)
+![](https://i.imgur.com/UDsbvjD.png)
+
+---
+
+- ### FUNCȚIA ACKLEY
+
+    ![](https://www.sfu.ca/~ssurjano/ackley2.png)
+
+    Valorile folosite sunt a=20, b=0.2, c=2π
+    
+    Minimul global al funcției este 0, când toți parametrii au valoarea 0
+    
+    x~i~ ∈ [-32.768, 32.768], pentru i = 1, ..., d
+
+    Graficul funcției cu 2 parametri:
+    
+    ![](https://www.sfu.ca/~ssurjano/ackley.png)
+
+---
+
+-- **ACKLEY 2 PARAMETRI**
 
