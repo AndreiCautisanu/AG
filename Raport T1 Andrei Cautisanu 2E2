@@ -119,3 +119,95 @@ Deci, pentru a genera un anumit număr *d* de parametri, trebuie doar să gener�
 
 -- **ACKLEY 2 PARAMETRI**
 
+| Metoda | Nr. iteratii | Solutia minima | Solutia maxima | Media solutiilor | Deviatia standard |
+|:--------------------------------------:|:------------:|:--------------:|:--------------:|:----------------:|:-----------------:|
+| HILL CLIMBING  (best improvement) x30 | 100 | 0.0002797688 | 2.231794 | 1.176493 | 1.050142 |
+| HILL CLIMBING  (first improvement) x30 | 100 | 0.0001250521 | 0.0001250521 | 0.0001250521 | 0 |
+| SIMULATED ANNEALING | 10000 | 0.0001250521 | 19.96677 | 2.14002 | 3.184884 |
+
+![](https://i.imgur.com/RGv4EVo.png)
+![](https://i.imgur.com/s1k1oPF.png)
+
+---
+
+-- **ACKLEY 5 PARAMETRI**
+
+| Metoda | Nr. iteratii | Solutia minima | Solutia maxima | Media solutiilor | Deviatia standard |
+|:--------------------------------------:|:------------:|:--------------:|:--------------:|:----------------:|:-----------------:|
+| HILL CLIMBING  (best improvement) x30 | 100 | 2.139435 | 2.348296 | 2.291392 | 0.04494098 |
+| HILL CLIMBING  (first improvement) x30 | 100 | 0.0001250521 | 0.0001250521 | 0.0001250521 | 0 |
+| SIMULATED ANNEALING | 10000 | 0.3015777 | 19.99341 | 9.365155 | 5.24811 |
+
+![](https://i.imgur.com/0B6E94E.png)
+![](https://i.imgur.com/yFrI9TM.png)
+
+---
+
+-- **ACKLEY 30 PARAMETRI**
+
+| Metoda | Nr. iteratii | Solutia minima | Solutia maxima | Media solutiilor | Deviatia standard |
+|:--------------------------------------:|:------------:|:--------------:|:--------------:|:----------------:|:-----------------:|
+| HILL CLIMBING  (best improvement) x30 | 25 | 2.467152 | 2.545542 | 2.508916 | 0.02301308 |
+| HILL CLIMBING  (first improvement) x30 | 25 | 2.411027 | 2.888043 | 2.664627 | 0.1182601 |
+| SIMULATED ANNEALING | 5000 | 17.86243 | 20.8811 | 20.0109 | 0.4369461 |
+
+![](https://i.imgur.com/rSVQSCO.png)
+![](https://i.imgur.com/w1GJDzo.png)
+![](https://i.imgur.com/GeUug5E.png)
+
+---
+
+- ### FUNCȚIA DIXON-PRICE
+
+    ![](https://www.sfu.ca/~ssurjano/dixonpr2.png)
+    
+    Minimul global al funcției: 
+    
+    ![](https://www.sfu.ca/~ssurjano/dixonpr3.png)
+    
+    x~i~ ∈ [-10, 10], pentru i = 1, ..., d
+
+    Graficul funcției cu 2 parametri:
+    
+    ![](https://www.sfu.ca/~ssurjano/dixonpr.png)
+
+---
+
+-- **DIXON-PRICE 2 PARAMETRI**
+
+| Metoda | Nr. iteratii | Solutia minima | Solutia maxima | Media solutiilor | Deviatia standard |
+|:--------------------------------------:|:------------:|:--------------:|:--------------:|:----------------:|:-----------------:|
+| HILL CLIMBING  (best improvement) x30 | 100 | 1.074008e-06 | 2.478457e-04 | 6.786213e-05 | 8.879594e-05 |
+| HILL CLIMBING  (first improvement) x30 | 100 | 1.570382e-05 | 3.924927e-03 | 6.222384e-04 | 1.174641e-03 |
+| SIMULATED ANNEALING | 10000 | 1.556196e-05 | 100.7616 | 18.07076 | 32.58397 |
+
+![](https://i.imgur.com/pAKTxm2.png)
+![](https://i.imgur.com/9bAhesC.png)
+![](https://i.imgur.com/IJg4UwH.png)
+
+---
+
+-- **DIXON-PRICE 5 PARAMETRI**
+
+| Metoda | Nr. iteratii | Solutia minima | Solutia maxima | Media solutiilor | Deviatia standard |
+|:--------------------------------------:|:------------:|:--------------:|:--------------:|:----------------:|:-----------------:|
+| HILL CLIMBING  (best improvement) x30 | 100 | 0.009301946 | 0.6668074 | 0.3788513 | 0.2433799 |
+| HILL CLIMBING  (first improvement) x30 | 100 | 0.009809773 | 0.666683 | 0.3328484 | 0.2815964 |
+| SIMULATED ANNEALING | 10000 | 0.04541871 | 10107.59 | 127.9927 | 642.3514 |
+
+![](https://i.imgur.com/YjJDzt5.png)
+![](https://i.imgur.com/A31mtyP.png)
+![](https://i.imgur.com/Ko8DfNC.png)
+
+---
+
+-- **DIXON-PRICE 30 PARAMETRI**
+| Metoda | Nr. iteratii | Solutia minima | Solutia maxima | Media solutiilor | Deviatia standard |
+|:--------------------------------------:|:------------:|:--------------:|:--------------:|:----------------:|:-----------------:|
+| HILL CLIMBING  (best improvement) x30 | 25 | 187368 | 203152 | 198067.1 | 3758.145 |
+| HILL CLIMBING  (first improvement) x30 | 25 | 0.6666814 | 1.000093 | 0.7615168 | 0.1409038 |
+| SIMULATED ANNEALING | 3000 | 26992.11 | 2439185 | 667836.3 | 386494.2 |
+
+![](https://i.imgur.com/5wQcaX1.png)
+![](https://i.imgur.com/dXez2K2.png)
+![](https://i.imgur.com/n4pehNs.png)
