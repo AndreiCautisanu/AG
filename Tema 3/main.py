@@ -16,17 +16,28 @@ def readCnfFile(file):
 
 
 def checkUnsatisfiedClauses(clauses, sol):
-    unsatClauses = deepcopy(clauses)
+    # unsatClauses = deepcopy(clauses)
 
-    for lit in sol:
-        i = 0
-        while i < len(unsatClauses):
-            if lit in unsatClauses[i]:
-                unsatClauses.remove(unsatClauses[i])
-            else:
-                i = i + 1
+    # for lit in sol:
+    #     i = 0
+    #     while i < len(unsatClauses):
+    #         if lit in unsatClauses[i]:
+    #             unsatClauses.remove(unsatClauses[i])
+    #         else:
+    #             i = i + 1
 
-    return len(unsatClauses)
+    # return len(unsatClauses)
+
+    satisfiedClausesNo = 0
+
+    for clause in clauses:
+        for lit in clause:
+            if lit in sol:
+                satisfiedClausesNo += 1
+                break
+    
+    return len(clauses) - satisfiedClausesNo
+
 
 
 def randomSolution(literalsNo):
@@ -141,7 +152,7 @@ def genetic(clauses, literalsNo, popSize, iterations, rate):
         print("pop fitness determined in {}\n".format(timedelta(seconds=end-start)))
 
         print("Pop avg fitness = {} \n Best value = {}".format(fitness, bestVal))
-        results.write("{}".format(fitness))
+        results.write("{}\n".format(fitness))
 
         start = timer()
         selectPop = select(clauses, pop, popSize, unsatClausesNo)
