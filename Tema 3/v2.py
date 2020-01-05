@@ -134,6 +134,7 @@ def cx(parent1, parent2):
 
 def mutateGenome(genome, rate):
     prob = numpy.random.uniform(0, 1)
+
     if prob < rate:
         k = numpy.random.randint(0, len(genome))
         genome[k] = 1 - genome[k]
@@ -148,14 +149,16 @@ cls, nrLit = readCnfFile("clause1.cnf")
 cls = numpy.array(cls)
 CX_RATE = 0.7
 MUT_RATE = 0.01
+ELIT_RATE = 0.5
+POP_SIZE = 100
 
 pop = list()
-for i in range(100):
+for i in range(POP_SIZE):
     pop.append(randomSolution(int(nrLit)))
 
 abstime = time.time()
 
-for i in range(1000):
+for i in range(2000):
 
     start = time.time()
 
@@ -168,9 +171,9 @@ for i in range(1000):
     fitnessSum = sum(fitness)
     pop = sort_list(pop, fitness)
     pop.reverse()
-    newPop = newPop + pop[:59]
+    newPop = newPop + pop[:(int(POP_SIZE * ELIT_RATE) + 1)]
 
-    for _ in range(20):
+    for _ in range(int(((1 - ELIT_RATE) * POP_SIZE) / 2)):
         parent1 = rouletteSelect(pop, cls, nrLit, fitness, fitnessSum)
         parent2 = rouletteSelect(pop, cls, nrLit, fitness, fitnessSum)
 
@@ -186,12 +189,26 @@ for i in range(1000):
         newPop.append(child1)
         newPop.append(child2)
 
-
     passed = time.time() - start
 
     print("generation {} | best {} | time {} | abs time {}".format(i,fitness[0],passed,time.time()-abstime))
 
-    pop = newPop.copy()
+    pop = newPop[:POP_SIZE].copy()
+
+    if i == 500:
+        ELIT_RATE = 0.2
+        CX_RATE = 0.75
+        MUT_RATE = 0.02
+    
+    elif i == 750:
+        ELIT_RATE = 0.02
+        CX_RATE = 0.9
+        MUT_RATE = 0.05
+    
+    elif i == 1250:
+        ELIT_RATE = 0.01
+        CX_RATE = 1
+        MUT_RATE = 0.1
     
 with open("cache.json", "w") as write_file:
     json.dump(cache, write_file)
