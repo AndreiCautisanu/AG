@@ -9,6 +9,7 @@ from timeit import default_timer as timer
 import time
 import pprint
 import numpy
+import json
 
 cache = dict()
 
@@ -137,7 +138,12 @@ def mutateGenome(genome, rate):
         k = numpy.random.randint(0, len(genome))
         genome[k] = 1 - genome[k]
 
-
+try:
+    with open("cache.json", "r") as read_file:
+        cache = json.load(read_file)
+except:
+    pass
+        
 cls, nrLit = readCnfFile("clause1.cnf")
 cls = numpy.array(cls)
 CX_RATE = 0.7
@@ -186,3 +192,6 @@ for i in range(1000):
     print("generation {} | best {} | time {} | abs time {}".format(i,fitness[0],passed,time.time()-abstime))
 
     pop = newPop.copy()
+    
+with open("cache.json", "w") as write_file:
+    json.dump(cache, write_file)
