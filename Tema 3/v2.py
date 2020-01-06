@@ -139,11 +139,11 @@ def mutateGenome(genome, rate):
         k = numpy.random.randint(0, len(genome))
         genome[k] = 1 - genome[k]
 
-try:
-    with open("cache.json", "r") as read_file:
-        cache = json.load(read_file)
-except:
-    pass
+# try:
+#     with open("cache.json", "r") as read_file:
+#         cache = json.load(read_file)
+# except:
+#     pass
         
 cls, nrLit = readCnfFile("clause1.cnf")
 cls = numpy.array(cls)
@@ -195,20 +195,19 @@ for i in range(2000):
 
     pop = newPop[:POP_SIZE].copy()
 
-    if i == 500:
-        ELIT_RATE = 0.2
+    if i == 250:
+        ELIT_RATE = 0.3
         CX_RATE = 0.75
         MUT_RATE = 0.02
     
-    elif i == 750:
-        ELIT_RATE = 0.02
+    elif i == 500:
+        ELIT_RATE = 0.2
         CX_RATE = 0.9
         MUT_RATE = 0.05
     
-    elif i == 1250:
-        ELIT_RATE = 0.01
+    elif i == 750:
         CX_RATE = 1
         MUT_RATE = 0.1
     
-with open("cache.json", "w") as write_file:
-    json.dump(cache, write_file)
+# with open("cache.json", "w") as write_file:
+#     json.dump(cache, write_file)
