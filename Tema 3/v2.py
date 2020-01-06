@@ -145,69 +145,76 @@ def mutateGenome(genome, rate):
 # except:
 #     pass
         
-cls, nrLit = readCnfFile("clause1.cnf")
+cls, nrLit = readCnfFile("450L.cnf")
 cls = numpy.array(cls)
 CX_RATE = 0.7
 MUT_RATE = 0.01
 ELIT_RATE = 0.5
 POP_SIZE = 100
 
-pop = list()
-for i in range(POP_SIZE):
-    pop.append(randomSolution(int(nrLit)))
+output = open("450L.txt", "a+")
 
-abstime = time.time()
+for iters in range(30):
 
-for i in range(2000):
+    pop = list()
+    for i in range(POP_SIZE):
+        pop.append(randomSolution(int(nrLit)))
 
-    start = time.time()
+    abstime = time.time()
 
-    # newpop,bestInGen = select(cls,pop,nrLit)
-    # newpop = crossover(newpop,nrLit)
-    # newpop = mutate(newpop,0.05)
+    for i in range(2000):
 
-    newPop = []
-    fitness = popFitness(pop, cls)
-    fitnessSum = sum(fitness)
-    pop = sort_list(pop, fitness)
-    pop.reverse()
-    newPop = newPop + pop[:(int(POP_SIZE * ELIT_RATE) + 1)]
+        start = time.time()
 
-    for _ in range(int(((1 - ELIT_RATE) * POP_SIZE) / 2)):
-        parent1 = rouletteSelect(pop, cls, nrLit, fitness, fitnessSum)
-        parent2 = rouletteSelect(pop, cls, nrLit, fitness, fitnessSum)
+        # newpop,bestInGen = select(cls,pop,nrLit)
+        # newpop = crossover(newpop,nrLit)
+        # newpop = mutate(newpop,0.05)
 
-        prob = numpy.random.uniform(0, 1)
-        if prob < CX_RATE:
-            child1, child2 = cx(parent1, parent2)
-        else:
-            child1, child2 = parent1, parent2
+        newPop = []
+        fitness = popFitness(pop, cls)
+        fitnessSum = sum(fitness)
+        pop = sort_list(pop, fitness)
+        pop.reverse()
+        newPop = newPop + pop[:(int(POP_SIZE * ELIT_RATE) + 1)]
+
+        for _ in range(int(((1 - ELIT_RATE) * POP_SIZE) / 2)):
+            parent1 = rouletteSelect(pop, cls, nrLit, fitness, fitnessSum)
+            parent2 = rouletteSelect(pop, cls, nrLit, fitness, fitnessSum)
+
+            prob = numpy.random.uniform(0, 1)
+            if prob < CX_RATE:
+                child1, child2 = cx(parent1, parent2)
+            else:
+                child1, child2 = parent1, parent2
+            
+            mutateGenome(child1, 0.01)
+            mutateGenome(child2, 0.01)
+
+            newPop.append(child1)
+            newPop.append(child2)
+
+        passed = time.time() - start
+
+        #print("generation {} | best {} | time {} | abs time {}".format(i,fitness[0],passed,time.time()-abstime))
+
+        pop = newPop[:POP_SIZE].copy()
+
+        if i == 250:
+            ELIT_RATE = 0.3
+            CX_RATE = 0.75
+            MUT_RATE = 0.02
         
-        mutateGenome(child1, 0.01)
-        mutateGenome(child2, 0.01)
+        elif i == 500:
+            ELIT_RATE = 0.2
+            CX_RATE = 0.9
+            MUT_RATE = 0.05
+        
+        elif i == 750:
+            CX_RATE = 1
+            MUT_RATE = 0.1
 
-        newPop.append(child1)
-        newPop.append(child2)
-
-    passed = time.time() - start
-
-    print("generation {} | best {} | time {} | abs time {}".format(i,fitness[0],passed,time.time()-abstime))
-
-    pop = newPop[:POP_SIZE].copy()
-
-    if i == 250:
-        ELIT_RATE = 0.3
-        CX_RATE = 0.75
-        MUT_RATE = 0.02
-    
-    elif i == 500:
-        ELIT_RATE = 0.2
-        CX_RATE = 0.9
-        MUT_RATE = 0.05
-    
-    elif i == 750:
-        CX_RATE = 1
-        MUT_RATE = 0.1
-    
-# with open("cache.json", "w") as write_file:
-#     json.dump(cache, write_file)
+    print(fitness[0])
+    output.write("{}\n".format(fitness[0]))
+        
+    # with open("cache.json", "w") as write_file:
+    #     json.dump(cache, write_file)
